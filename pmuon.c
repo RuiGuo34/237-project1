@@ -26,8 +26,40 @@ int init_module(void) {
 
     // 5. Set event counter registers 
     // ***** YOUR CODE STARTS HERE *****
-	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x0)); //select register 0
-	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x3));
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x0)); //select first event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x4)); //L1 Data Cache Access
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
+	printk("counter value %d\n", v);
+
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x1)); //select second event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x3)); //L1 Data Cache Miss
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
+	printk("counter value %d\n", v);
+
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x2)); //select third event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x16)); //L2 Data Cache Access
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
+	printk("counter value %d\n", v);
+
+
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x3)); //select fourth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x17)); //L2 Data Cache Miss
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
+	printk("counter value %d\n", v);
+
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x4)); //select fifth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xC9)); //Conditional Branch Executed
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
+	printk("counter value %d\n", v);
+
+
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x4)); //select fifth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xC9)); //Conditional Branch Executed
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
+	printk("counter value %d\n", v);
+
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x5)); //select sixth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xCC)); //Conditional Branch mispredicted
 	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
 	printk("counter value %d\n", v);
 
