@@ -52,12 +52,6 @@ int init_module(void) {
 	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
 	printk("counter value %d\n", v);
 
-
-	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x4)); //select fifth event counter
-	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xC9)); //Conditional Branch Executed
-	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	printk("counter value %d\n", v);
-
 	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x5)); //select sixth event counter
 	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xCC)); //Conditional Branch mispredicted
 	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
