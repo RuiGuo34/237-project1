@@ -26,9 +26,9 @@ int init_module(void) {
 
     // 5. Set event counter registers 
     // ***** YOUR CODE STARTS HERE *****
-	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x0)); 
-	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x03));
-	asm volatile ("mrc p15, 0, %0, c9, c12, 2\n\t" : "=r" (v));
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x0)); //select register 0
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x3));
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
 	printk("counter value %d\n", v);
 
     // ***** YOUR CODE ENDS HERE *******
