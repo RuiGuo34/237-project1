@@ -7,6 +7,13 @@ MODULE_DESCRIPTION("PMUON");
 
 int init_module(void) {
     unsigned int v;
+    unsigned int v1;
+    unsigned int v2;
+    unsigned int v3;
+    unsigned int v4;
+    unsigned int v5;
+    unsigned int v6;
+
     printk("Turn PMU on\n");
 
     // 1. Enable "User Enable Register"
@@ -26,37 +33,37 @@ int init_module(void) {
 
     // 5. Set event counter registers 
     // ***** YOUR CODE STARTS HERE *****
-	// asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x0)); //select first event counter
-	// asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x4)); //L1 Data Cache Access
-	// asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	// printk("counter 1 value %d\n", v);
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x0)); //select first event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x4)); //L1 Data Cache Access
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v1));
+	printk("counter 1 value %d\n", v1);
 
-	// asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x1)); //select second event counter
-	// asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x3)); //L1 Data Cache Miss
-	// asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	// printk("counter 2 value %d\n", v);
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x1)); //select second event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x3)); //L1 Data Cache Miss
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v2));
+	printk("counter 2 value %d\n", v2);
 
-	// asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x2)); //select third event counter
-	// asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x16)); //L2 Data Cache Access
-	// asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	// printk("counter 3 value %d\n", v);
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x2)); //select third event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x16)); //L2 Data Cache Access
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v3));
+	printk("counter 3 value %d\n", v3);
 
 
-	// asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x3)); //select fourth event counter
-	// asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x17)); //L2 Data Cache Miss
-	// asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	// printk("counter 4 value %d\n", v);
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x3)); //select fourth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0x17)); //L2 Data Cache Miss
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v4));
+	printk("counter 4 value %d\n", v4);
 
-	// asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x4)); //select fifth event counter
-	// asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xC9)); //Conditional Branch Executed
-	// asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	// printk("counter 5 value %d\n", v);
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x4)); //select fifth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xC9)); //Conditional Branch Executed
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v5));
+	printk("counter 5 value %d\n", v5);
 
-	// asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x5)); //select sixth event counter
-	// asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xCC)); //Conditional Branch mispredicted
-	// asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v));
-	// printk("counter 6 value %d\n", v);
-	// printk("finished\n");
+	asm volatile ("mcr p15, 0, %0, c9, c12, 5\n\t" :: "r"(0x5)); //select sixth event counter
+	asm volatile ("mcr p15, 0, %0, c9, c13, 1\n\t" :: "r"(0xCC)); //Conditional Branch mispredicted
+	asm volatile ("mrc p15, 0, %0, c9, c13, 2\n\t" : "=r" (v6));
+	printk("counter 6 value %d\n", v6);
+	printk("finished\n");
     // ***** YOUR CODE ENDS HERE *******
     return 0;
 }
