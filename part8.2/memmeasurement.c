@@ -17,7 +17,7 @@
 // Workload that traverses allocated memory area in a reverse order (to minimize prefetching effect)
 static int DEF_ITERATION = 10000;
 static int DEF_STRIDE = 128;
-static int DEF_SIZE = 4*1024*1024;
+static int DEF_SIZE = 1024;
 
 static int* v;
 void workload_init(int STRIDE, int SIZE) {
