@@ -215,7 +215,7 @@ int main(int argc, char *argv[]) {
 
 	// Initialize
 	set_governor("userspace", szOldGovernor);
-	set_by_max_freq(); // You can also test the minimum frequency using "set_by_min_freq()"
+	set_by_min_freq(); // You can also test the minimum frequency using "set_by_min_freq()"
 	workload_init(DEF_STRIDE, DEF_SIZE);
 	printf("Measurement start.\n");
 	
