@@ -17,7 +17,7 @@
 // Workload that traverses allocated memory area in a reverse order (to minimize prefetching effect)
 static int DEF_ITERATION = 10000;
 static int DEF_STRIDE = 128;
-static int DEF_SIZE = 128*1024;
+static int DEF_SIZE = 8*1024;
 
 static int* v;
 void workload_init(int STRIDE, int SIZE) {
@@ -215,7 +215,7 @@ int main(int argc, char *argv[]) {
 
 	// Initialize
 	set_governor("userspace", szOldGovernor);
-	set_by_max_freq(); // You can also test the minimum frequency using "set_by_min_freq()"
+	set_by_min_freq(); // You can also test the minimum frequency using "set_by_min_freq()"
 	workload_init(DEF_STRIDE, DEF_SIZE);
 	printf("Measurement start.\n");
 	
